@@ -17,7 +17,7 @@ public class Portfel {
     }
 
     public void wplac(Pieniadze ile) {
-        kasa.get(ile.getWaluta()).przyjmijPieniadze(ile); 
+        kasa.get(ile.getWaluta()).przyjmijPieniadze(ile);
     }
 
     public void wyplac(Pieniadze ile) throws JestesBiednyException {
