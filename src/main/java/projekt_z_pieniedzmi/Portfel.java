@@ -30,4 +30,6 @@ public class Portfel {
     public String saldo() {
         return format("W portfelu jest: %s", pieniadze);
     }
+
+
 }

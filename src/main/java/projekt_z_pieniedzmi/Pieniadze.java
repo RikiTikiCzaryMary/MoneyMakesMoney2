@@ -1,6 +1,7 @@
 package projekt_z_pieniedzmi;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import static java.lang.String.format;
 
@@ -46,5 +47,19 @@ public class Pieniadze {
         if (!waluta.equals(pieniadz.waluta)) {
             throw new NieTaWalutaException();
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pieniadze pieniadze = (Pieniadze) o;
+        return Objects.equals(kwota, pieniadze.kwota) &&
+                waluta == pieniadze.waluta;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(kwota, waluta);
     }
 }
