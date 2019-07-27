@@ -9,27 +9,28 @@ public class Pieniadze {
     private BigDecimal kwota;
     private Waluta waluta;
 
-
     public Pieniadze(BigDecimal kwotaPoczatkowa, Waluta waluta) {
         this.kwota = kwotaPoczatkowa;
         this.waluta = waluta;
     }
 
     public Pieniadze przyjmijPieniadze(Pieniadze pieniadz) {
-        this.kwota = this.kwota.add(pieniadz.kwota);
-        return new Pieniadze(kwota,waluta);
+        sprawdzWalute(pieniadz);
+        kwota = kwota.add(pieniadz.kwota);
+        return new Pieniadze(kwota, waluta);
     }
 
     public Pieniadze pobierzPieniadze(Pieniadze pieniadz) throws JestesBiednyException {
-
+        sprawdzWalute(pieniadz);
         if (!czyCieStac(pieniadz)) {
             throw new JestesBiednyException();
         }
-        this.kwota = this.kwota.remainder(pieniadz.kwota);
+        kwota = kwota.subtract(pieniadz.kwota);
         return new Pieniadze(kwota, waluta);
     }
 
     public boolean czyCieStac(Pieniadze pieniadz) {
+        sprawdzWalute(pieniadz);
         return kwota.compareTo(pieniadz.kwota) >= 0;
     }
 
@@ -39,5 +40,11 @@ public class Pieniadze {
 
     public Waluta getWaluta() {
         return waluta;
+    }
+
+    private void sprawdzWalute(Pieniadze pieniadz) {
+        if (!waluta.equals(pieniadz.waluta)) {
+            throw new NieTaWalutaException();
+        }
     }
 }
